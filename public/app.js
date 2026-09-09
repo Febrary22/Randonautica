@@ -11,6 +11,16 @@
  * are NOT implemented here; this demonstrates the core loop only).
  */
 
+// ---------- PWA install support ----------
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      // Non-fatal: the app still works without offline shell caching / install-prompt support.
+    });
+  });
+}
+
 // ---------- geo helpers ----------
 
 function toRad(d) { return (d * Math.PI) / 180; }
