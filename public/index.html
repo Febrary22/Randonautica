@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>일탈 (Escapade) — prototype</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<div id="risk-banner" class="risk-banner" hidden>
+  <span id="risk-banner-text"></span>
+  <button id="risk-banner-dismiss" aria-label="닫기">✕</button>
+</div>
+
+<main>
+
+  <!-- HOME -->
+  <section id="screen-home" class="screen">
+    <div class="fog"></div>
+    <h1 class="brand">일탈<span class="brand-en">Escapade</span></h1>
+    <p class="tagline">미지의 세계로 한 걸음</p>
+
+    <label class="radius-label" for="radius">탐험 반경: <span id="radius-value">1.0</span> km</label>
+    <input type="range" id="radius" min="0.3" max="5" step="0.1" value="1" />
+
+    <button id="start-btn" class="primary-btn">모험 시작</button>
+    <p id="home-error" class="error-text" hidden></p>
+    <p class="disclaimer">낯선 곳으로 향합니다. 무리하지 말고, 위험하다 느끼면 언제든 돌아오세요.</p>
+  </section>
+
+  <!-- GENERATING -->
+  <section id="screen-generating" class="screen" hidden>
+    <div class="fog"></div>
+    <div class="spinner"></div>
+    <p class="loading-text" id="loading-text">좌표를 계산하는 중…</p>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="screen-approach" class="screen" hidden>
+    <div class="fog fog-approach"></div>
+
+    <div class="compass-wrap">
+      <div id="compass-arrow" class="compass-arrow">▲</div>
+    </div>
+
+    <div class="distance-readout">
+      <span id="distance-value">--</span><span class="distance-unit">m</span>
+    </div>
+    <p id="bearing-fallback" class="bearing-fallback" hidden></p>
+    <p id="destination-type" class="destination-type"></p>
+
+    <div class="approach-controls">
+      <button id="mute-btn" class="secondary-btn">🔇 무음(진동) 모드</button>
+      <button id="giveup-btn" class="secondary-btn">돌아가기 (모험 종료)</button>
+    </div>
+
+    <p class="disclaimer small">소리에 집중하세요. 화면은 잠시만 확인하시면 됩니다.</p>
+  </section>
+
+  <!-- RESULT -->
+  <section id="screen-result" class="screen" hidden>
+    <div class="fog"></div>
+    <h2>오늘의 탐험이 끝났어요</h2>
+
+    <div id="result-map" class="result-map"></div>
+
+    <div class="stats-grid">
+      <div class="stat"><span class="stat-value" id="stat-time">--</span><span class="stat-label">소요 시간</span></div>
+      <div class="stat"><span class="stat-value" id="stat-distance">--</span><span class="stat-label">이동 거리</span></div>
+      <div class="stat"><span class="stat-value" id="stat-steps">--</span><span class="stat-label">추정 걸음수</span></div>
+      <div class="stat"><span class="stat-value" id="stat-points">--</span><span class="stat-label">획득 포인트</span></div>
+    </div>
+    <p class="fine-print">* 걸음수는 GPS 이동거리 기반 추정치입니다(실제 앱은 기기 만보계를 사용, docs §3 참고).</p>
+
+    <div class="rating-wrap">
+      <div id="stars" class="stars">
+        <span data-star="1">★</span><span data-star="2">★</span><span data-star="3">★</span><span data-star="4">★</span><span data-star="5">★</span>
+      </div>
+      <textarea id="review-text" placeholder="이 곳에서 느낀 것을 짧게 남겨보세요…" rows="3"></textarea>
+    </div>
+
+    <div class="result-actions">
+      <button id="share-btn" class="secondary-btn">공유하고 포인트 1.5배 받기</button>
+      <button id="new-adventure-btn" class="primary-btn">새 모험 떠나기</button>
+    </div>
+    <p id="share-status" class="share-status" hidden></p>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js" defer></script>
+<link href="https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+<script src="/app.js" defer></script>
+</body>
+</html>
