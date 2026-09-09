@@ -50,13 +50,19 @@ npx localtunnel --port 3000     # 또는: ngrok http 3000
 대신 GitHub에 올라간 이 저장소를 아래처럼 무료 호스팅에 연결하면 고정된 HTTPS 주소가
 생깁니다(다음에 계속 이 URL로 접속 가능):
 
-- **Render** (render.com): New → Web Service → 이 GitHub 저장소 선택 → Build Command
-  `npm install`, Start Command `npm start` → 배포 후 나오는 `https://<앱이름>.onrender.com`
-  주소를 휴대폰에서 열면 됩니다. (무료 플랜은 한동안 요청이 없으면 잠들었다가 첫 요청 시
-  10~30초 정도 깨어나는 지연이 있을 수 있어요.)
+- **Render** (render.com) — 휴대폰 브라우저만으로도 가능:
+  1. 아래 링크를 휴대폰 브라우저로 엽니다 (GitHub 계정으로 로그인/가입 필요):
+     **https://render.com/deploy?repo=https://github.com/Febrary22/Randonautica**
+  2. Render가 저장소의 `render.yaml`을 읽어 Web Service 설정(빌드: `npm install`,
+     시작: `npm start`, 무료 플랜)을 자동으로 채웁니다 — "Apply"/"Deploy" 버튼만 누르면 됩니다.
+  3. 배포가 끝나면(1~2분) `https://escapade-prototype-xxxx.onrender.com` 같은 **고정 주소**가
+     생깁니다. 이 주소를 휴대폰 브라우저로 열고 "홈 화면에 추가"를 누르면, 그 다음부터는
+     홈 화면 아이콘을 탭 하나로 바로 실행됩니다.
+  - 무료 플랜은 한동안 요청이 없으면 서버가 잠들었다가, 오랜만에 열면 첫 로딩에 10~30초
+    정도 걸릴 수 있어요(그 이후는 빠릅니다). 계정 인증 등 이유로 위 링크가 바로 안 먹으면,
+    render.com에서 New → Web Service → 이 저장소를 직접 선택해도 동일하게 설정됩니다
+    (branch는 이 저장소의 기본 브랜치라 따로 바꿀 필요 없습니다).
 - **Railway**, **Fly.io** 등 Node 앱을 지원하는 다른 PaaS도 동일한 방식으로 가능합니다.
-
-원하시면 다음 단계로 같이 배포 설정 파일(예: `render.yaml`)을 추가해드릴 수 있습니다.
 
 ## 테스트
 
