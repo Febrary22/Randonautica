@@ -15,6 +15,12 @@
 
 * { box-sizing: border-box; }
 
+/* Without this, elements below fall back to the browser's default UA rule for [hidden], but our
+   own class rules (.screen{display:flex}, .risk-banner{display:flex}, ...) have equal specificity
+   and — being author styles — win over that UA rule regardless, so screens stack instead of
+   hiding. Toggle visibility via el.hidden in JS; this is what actually makes that work. */
+[hidden] { display: none !important; }
+
 html, body {
   margin: 0;
   padding: 0;
