@@ -18,13 +18,21 @@ function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
-function generateIcon(size) {
+/**
+ * @param {number} size
+ * @param {{ maskable?: boolean }} [opts] Android adaptive icons ("maskable" in the manifest) can be
+ *   cropped to a circle/squircle/rounded-square by the launcher, and only the center ~80% "safe
+ *   zone" is guaranteed visible. Regular icons can use the full canvas; maskable ones shrink the
+ *   orb so nothing important sits in the part a launcher might crop away.
+ */
+function generateIcon(size, { maskable = false } = {}) {
   const png = new PNG({ width: size, height: size });
   const cx = size / 2;
   const cy = size / 2;
-  const coreR = size * 0.14;
-  const glowR = size * 0.42;
-  const ringR = size * 0.46;
+  const safeZoneScale = maskable ? 0.8 : 1; // keeps the ring within Android's ~80% safe-zone circle
+  const coreR = size * 0.14 * safeZoneScale;
+  const glowR = size * 0.42 * safeZoneScale;
+  const ringR = size * 0.46 * safeZoneScale;
   const ringWidth = Math.max(1, size * 0.015);
 
   for (let y = 0; y < size; y++) {
@@ -70,6 +78,17 @@ fs.mkdirSync(outDir, { recursive: true });
 for (const size of [180, 192, 512]) {
   const png = generateIcon(size);
   const outPath = path.join(outDir, `icon-${size}.png`);
+  png.pack().pipe(fs.createWriteStream(outPath)).on('finish', () => {
+    console.log(`wrote ${outPath}`);
+  });
+}
+
+// Maskable variants: used for Android's adaptive-icon system (and TWA/Play Store packaging via
+// tools like PWABuilder), which crops icons to the launcher's shape and only guarantees the
+// center ~80% is visible.
+for (const size of [192, 512]) {
+  const png = generateIcon(size, { maskable: true });
+  const outPath = path.join(outDir, `icon-${size}-maskable.png`);
   png.pack().pipe(fs.createWriteStream(outPath)).on('finish', () => {
     console.log(`wrote ${outPath}`);
   });

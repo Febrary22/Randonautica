@@ -1,4 +1,5 @@
 {
+  "id": "/",
   "name": "일탈 (Escapade)",
   "short_name": "일탈",
   "description": "미지의 세계로 한 걸음 — 과학적으로 필터링된 미스터리 탐험 프로토타입",
@@ -9,8 +10,11 @@
   "background_color": "#05080a",
   "theme_color": "#05080a",
   "lang": "ko",
+  "categories": ["travel", "health", "lifestyle"],
   "icons": [
-    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
